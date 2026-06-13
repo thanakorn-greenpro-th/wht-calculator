@@ -5,21 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>เครื่องคำนวณภาษีหัก ณ ที่จ่าย 2569 พร้อมคู่มือ | Greenpro KSP</title>
 <meta name="description" content="เครื่องคำนวณภาษีหัก ณ ที่จ่าย กรอกตัวเลขแล้วรู้ผลทันที พร้อมคู่มือ 3 วิธีคำนวณ ตารางอัตรา 2569 หักก่อน VAT และการยื่น ภ.ง.ด.3/53 โดย Greenpro KSP">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@500;600&family=Sarabun:wght@400;600;700&family=Kanit:wght@500;600&display=swap" rel="stylesheet">
 <style>
+  @font-face{font-family:'DB Heavent';src:url('fonts/DBHeavent-Regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+  @font-face{font-family:'DB Heavent';src:url('fonts/DBHeavent-Medium.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+  @font-face{font-family:'DB Heavent';src:url('fonts/DBHeavent-Bold.woff2') format('woff2');font-weight:700;font-style:normal;font-display:swap}
   *{box-sizing:border-box;margin:0;padding:0}
   :root{
     --primary:#207D3F;--primary-d:#1D7139;--accent:#3CB348;
     --mint:#EAF6EC;--bg-alt:#F4FBF6;--ink:#131736;--muted:#4B5563;--border:#E5E7EB;
-    --f-head:'Prompt',-apple-system,BlinkMacSystemFont,sans-serif;
-    --f-body:'Sarabun',-apple-system,BlinkMacSystemFont,sans-serif;
-    --f-label:'Kanit',-apple-system,BlinkMacSystemFont,sans-serif;
+    --f-head:'DB Heavent',-apple-system,BlinkMacSystemFont,sans-serif;
+    --f-body:'DB Heavent',-apple-system,BlinkMacSystemFont,sans-serif;
+    --f-label:'DB Heavent',-apple-system,BlinkMacSystemFont,sans-serif;
     --r-card:16px;--r-control:10px;--r-pill:9999px;
   }
   html{scroll-behavior:smooth}
-  body{font-family:var(--f-body);color:var(--ink);line-height:1.7;background:#fff}
+  body{font-family:var(--f-body);color:var(--ink);line-height:1.65;background:#fff;font-size:19px}
   .wrap{max-width:800px;margin:0 auto;padding:0 18px}
   .hero{position:relative;padding:40px 0 16px;overflow:hidden}
   .hero::before{content:"";position:absolute;inset:-40% -20% auto -20%;height:420px;z-index:0;
@@ -29,32 +29,32 @@
   .hero>*{position:relative;z-index:1}
   .brandbar{display:flex;align-items:center;margin-bottom:20px}
   .brandbar img{height:60px;width:auto;display:block}
-  .eyebrow{font-family:var(--f-label);font-weight:600;font-size:13px;letter-spacing:.04em;
+  .eyebrow{font-family:var(--f-label);font-weight:600;font-size:15px;letter-spacing:.04em;
     color:var(--primary);text-transform:uppercase;margin-bottom:10px}
-  h1{font-family:var(--f-head);font-weight:600;font-size:34px;line-height:1.18;
-    letter-spacing:-.01em;margin-bottom:14px;color:var(--ink)}
-  .lead{font-size:16.5px;color:var(--muted);max-width:64ch;margin-bottom:18px}
+  h1{font-family:var(--f-head);font-weight:700;font-size:42px;line-height:1.15;
+    letter-spacing:0;margin-bottom:14px;color:var(--ink)}
+  .lead{font-size:20px;color:var(--muted);max-width:62ch;margin-bottom:18px}
   .lead b{color:var(--ink);font-weight:600}
   .badges{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px}
   .badge{display:inline-flex;align-items:center;gap:7px;background:var(--mint);
-    border-radius:var(--r-pill);padding:7px 14px;font-family:var(--f-label);font-weight:500;
-    font-size:13px;color:var(--primary-d)}
+    border-radius:var(--r-pill);padding:7px 15px;font-family:var(--f-label);font-weight:500;
+    font-size:15px;color:var(--primary-d)}
   .badge .ck{color:var(--accent);font-weight:700}
-  h2{font-family:var(--f-head);font-weight:600;font-size:24px;line-height:1.25;
+  h2{font-family:var(--f-head);font-weight:700;font-size:29px;line-height:1.22;
     margin:38px 0 12px;color:var(--ink);scroll-margin-top:18px}
-  h3{font-family:var(--f-head);font-weight:500;font-size:17px;margin:20px 0 6px;color:var(--ink)}
+  h3{font-family:var(--f-head);font-weight:600;font-size:21px;margin:20px 0 6px;color:var(--ink)}
   p{margin-bottom:12px}
   ul,ol{margin:0 0 14px 22px}li{margin-bottom:6px}
   b{font-weight:600}
   .em{color:var(--primary);font-weight:600}
-  .note{font-size:14px;color:var(--muted);border-left:4px solid var(--accent);
+  .note{font-size:16px;color:var(--muted);border-left:4px solid var(--accent);
     background:var(--bg-alt);padding:12px 16px;margin:16px 0;border-radius:0 var(--r-control) var(--r-control) 0}
   .toc{background:var(--bg-alt);border:1px solid var(--border);border-radius:var(--r-card);
     padding:16px 20px;margin:8px 0}
   .toc b{font-family:var(--f-label);font-weight:600;display:block;margin-bottom:8px;color:var(--primary-d)}
-  .toc a{color:var(--primary-d);text-decoration:none;font-size:14px;font-weight:600}
+  .toc a{color:var(--primary-d);text-decoration:none;font-size:16px;font-weight:600}
   .toc a:hover{text-decoration:underline;color:var(--accent)}
-  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px;display:block;overflow-x:auto;
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:16px;display:block;overflow-x:auto;
     border:1px solid var(--border);border-radius:var(--r-control)}
   th,td{border:1px solid var(--border);padding:10px 12px;text-align:left;vertical-align:top}
   th{background:var(--mint);color:var(--primary-d);font-family:var(--f-label);font-weight:600;white-space:nowrap}
@@ -63,14 +63,14 @@
   .gp-card{background:#fff;border:1px solid var(--border);border-radius:var(--r-card);overflow:hidden;
     box-shadow:0 10px 30px rgba(19,115,57,.08);margin:10px 0 14px}
   .gp-head{background:linear-gradient(135deg,var(--primary),var(--primary-d));color:#fff;padding:22px 24px}
-  .gp-head h2{font-family:var(--f-head);font-weight:600;font-size:21px;margin:0 0 4px;color:#fff}
-  .gp-head p{font-size:13.5px;opacity:.94;margin:0}
+  .gp-head h2{font-family:var(--f-head);font-weight:700;font-size:25px;margin:0 0 4px;color:#fff}
+  .gp-head p{font-size:15.5px;opacity:.94;margin:0}
   .gp-body{padding:22px 24px}
   .gp-field{margin-bottom:16px}
-  .gp-body label{display:block;font-family:var(--f-label);font-size:13px;font-weight:600;
-    letter-spacing:.02em;margin-bottom:6px;color:var(--ink)}
-  .gp-hint{font-family:var(--f-body);font-size:12px;color:var(--muted);font-weight:400;letter-spacing:0}
-  .gp-body input[type=number],.gp-body select{width:100%;padding:12px 14px;font-size:15px;
+  .gp-body label{display:block;font-family:var(--f-label);font-size:15px;font-weight:600;
+    letter-spacing:.01em;margin-bottom:6px;color:var(--ink)}
+  .gp-hint{font-family:var(--f-body);font-size:13.5px;color:var(--muted);font-weight:400;letter-spacing:0}
+  .gp-body input[type=number],.gp-body select{width:100%;padding:12px 14px;font-size:17px;
     font-family:var(--f-body);border:1px solid var(--border);border-radius:var(--r-control);
     background:#fff;color:var(--ink);outline:none;transition:border .15s,box-shadow .15s}
   .gp-body input[type=number]:focus,.gp-body select:focus{border-color:var(--primary);
@@ -81,36 +81,36 @@
   .gp-radio:hover{border-color:var(--primary)}
   .gp-radio.on{border-color:var(--primary);background:var(--mint)}
   .gp-radio input{margin-top:3px;accent-color:var(--primary)}
-  .gp-radio .t{font-weight:600;font-size:14px}
-  .gp-radio .d{font-size:12px;color:var(--muted)}
+  .gp-radio .t{font-weight:600;font-size:16px}
+  .gp-radio .d{font-size:14px;color:var(--muted)}
   .gp-rowf{display:flex;gap:12px;flex-wrap:wrap}
   .gp-rowf>.gp-field{flex:1;min-width:160px}
-  .gp-check{display:flex;align-items:center;gap:8px;font-family:var(--f-label);font-size:13px;font-weight:600;cursor:pointer}
+  .gp-check{display:flex;align-items:center;gap:8px;font-family:var(--f-label);font-size:15px;font-weight:600;cursor:pointer}
   .gp-check input{width:18px;height:18px;accent-color:var(--primary)}
   .gp-result{margin-top:6px;background:var(--bg-alt);border:1px solid var(--border);border-radius:var(--r-control);padding:6px 18px}
   .gp-line{display:flex;justify-content:space-between;align-items:baseline;padding:12px 0;
-    border-bottom:1px dashed var(--border);font-size:14.5px}
+    border-bottom:1px dashed var(--border);font-size:16.5px}
   .gp-line:last-child{border-bottom:none}
   .gp-line .k{color:var(--muted)}
   .gp-line .v{font-family:var(--f-label);font-weight:600;font-variant-numeric:tabular-nums}
   .gp-line.big{padding:14px 0}
   .gp-line.big .k{color:var(--ink);font-weight:700;font-family:var(--f-body)}
-  .gp-line.big .v{color:var(--primary);font-size:24px;font-weight:600;transition:color .2s}
-  .gp-formula{margin-top:12px;font-size:12.5px;color:var(--muted);background:#fff;
+  .gp-line.big .v{color:var(--primary);font-size:29px;font-weight:700;transition:color .2s}
+  .gp-formula{margin-top:12px;font-size:14.5px;color:var(--muted);background:#fff;
     border:1px dashed var(--border);border-radius:var(--r-control);padding:11px 14px}
   .gp-formula b{color:var(--primary-d)}
   .gp-cta{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between;
     background:var(--mint);border-radius:var(--r-card);padding:16px 18px}
-  .gp-cta span{font-size:13.5px;font-weight:600;color:var(--primary-d)}
+  .gp-cta span{font-size:15.5px;font-weight:600;color:var(--primary-d)}
   .gp-btn{display:inline-block;background:var(--primary);color:#fff;text-decoration:none;
-    font-family:var(--f-label);font-weight:600;font-size:14px;padding:11px 22px;border-radius:var(--r-pill);
+    font-family:var(--f-label);font-weight:600;font-size:16px;padding:11px 24px;border-radius:var(--r-pill);
     transition:.18s;border:none;cursor:pointer}
   .gp-btn:hover{background:var(--primary-d);transform:translateY(-1px);box-shadow:0 6px 16px rgba(32,125,63,.25)}
   .gp-smallnote{font-size:11.5px;color:var(--muted);margin-top:12px;text-align:center}
   .footer-band{background:var(--primary-d);color:#fff;border-radius:var(--r-card);
     padding:30px 26px;margin:46px 0 30px;text-align:center}
   .footer-band h2{color:#fff;margin:0 0 8px}
-  .footer-band p{color:rgba(255,255,255,.9);margin-bottom:16px;font-size:15px}
+  .footer-band p{color:rgba(255,255,255,.9);margin-bottom:16px;font-size:17px}
   .footer-band .gp-btn{background:#fff;color:var(--primary-d)}
   .footer-band .gp-btn:hover{background:var(--mint);box-shadow:0 6px 16px rgba(0,0,0,.18)}
   .sitefoot{text-align:center;font-size:13px;color:var(--muted);padding-bottom:40px}
