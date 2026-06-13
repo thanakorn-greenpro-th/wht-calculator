@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>เครื่องคำนวณภาษีหัก ณ ที่จ่าย 2569 พร้อมคู่มือ | Greenpro KSP</title>
+<meta name="description" content="เครื่องคำนวณภาษีหัก ณ ที่จ่าย กรอกตัวเลขแล้วรู้ผลทันที พร้อมคู่มือ 3 วิธีคำนวณ ตารางอัตรา 2569 หักก่อน VAT และการยื่น ภ.ง.ด.3/53 โดย Greenpro KSP">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{--green:#138a5e;--green-d:#0e6e4a;--ink:#1f2a37;--muted:#6b7280;
+    --line:#e3e8ee;--bg:#f6f9f8;--accent:#eafaf3}
+  body{font-family:"Sarabun",-apple-system,BlinkMacSystemFont,"Segoe UI",Tahoma,sans-serif;
+    color:var(--ink);line-height:1.65;background:#fbfdfc;padding:0 16px}
+  .wrap{max-width:780px;margin:0 auto;padding:28px 0 60px}
+  .topbar{display:flex;align-items:center;gap:10px;font-weight:700;color:var(--green-d);
+    font-size:17px;margin-bottom:22px}
+  .topbar .dot{width:22px;height:22px;border-radius:6px;background:var(--green);display:inline-block}
+  h1{font-size:27px;line-height:1.3;margin-bottom:14px;color:var(--ink)}
+  h2{font-size:21px;margin:34px 0 12px;color:var(--green-d);scroll-margin-top:20px}
+  h3{font-size:17px;margin:20px 0 8px}
+  p{margin-bottom:12px}
+  ul,ol{margin:0 0 14px 22px}
+  li{margin-bottom:6px}
+  .bluf{background:var(--accent);border-radius:14px;padding:16px 18px;margin-bottom:8px;border:1px solid #d2efe2}
+  .note{font-size:13.5px;color:var(--muted);border-left:4px solid var(--green);
+    background:#fff;padding:10px 14px;margin:14px 0;border-radius:0 8px 8px 0}
+  table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px;display:block;overflow-x:auto}
+  th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+  th{background:#1f6fb2;color:#fff;font-weight:600;white-space:nowrap}
+  tr:nth-child(even) td{background:#f8fbfa}
+  .toc{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-bottom:8px}
+  .toc b{display:block;margin-bottom:6px}
+  .toc a{color:var(--green-d);text-decoration:none;font-size:14px}
+  .toc a:hover{text-decoration:underline}
+  /* ---- calculator ---- */
+  .gp-card{background:#fff;border:1px solid var(--line);border-radius:16px;overflow:hidden;
+    box-shadow:0 6px 24px rgba(16,40,32,.06);margin:8px 0 10px}
+  .gp-head{background:linear-gradient(135deg,var(--green),var(--green-d));color:#fff;padding:20px 22px}
+  .gp-head h2{font-size:20px;font-weight:700;margin:0 0 4px;color:#fff}
+  .gp-head p{font-size:13.5px;opacity:.92;margin:0}
+  .gp-body{padding:20px 22px}
+  .gp-field{margin-bottom:16px}
+  .gp-body label{display:block;font-size:14px;font-weight:600;margin-bottom:6px}
+  .gp-hint{font-size:12px;color:var(--muted);font-weight:400}
+  .gp-body input[type=number],.gp-body select{width:100%;padding:11px 13px;font-size:15px;
+    font-family:inherit;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);
+    outline:none;transition:border .15s,box-shadow .15s}
+  .gp-body input[type=number]:focus,.gp-body select:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(19,138,94,.15)}
+  .gp-methods{display:grid;gap:8px}
+  .gp-radio{display:flex;gap:10px;align-items:flex-start;padding:11px 13px;border:1px solid var(--line);
+    border-radius:10px;cursor:pointer;transition:.15s}
+  .gp-radio:hover{border-color:var(--green)}
+  .gp-radio.on{border-color:var(--green);background:var(--accent)}
+  .gp-radio input{margin-top:3px;accent-color:var(--green)}
+  .gp-radio .t{font-size:14px;font-weight:600}
+  .gp-radio .d{font-size:12px;color:var(--muted)}
+  .gp-rowf{display:flex;gap:12px;flex-wrap:wrap}
+  .gp-rowf>.gp-field{flex:1;min-width:160px}
+  .gp-check{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;cursor:pointer}
+  .gp-check input{width:18px;height:18px;accent-color:var(--green)}
+  .gp-result{margin-top:6px;background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:6px 16px}
+  .gp-line{display:flex;justify-content:space-between;align-items:baseline;padding:11px 0;
+    border-bottom:1px dashed var(--line);font-size:14.5px}
+  .gp-line:last-child{border-bottom:none}
+  .gp-line .k{color:var(--muted)}
+  .gp-line .v{font-weight:600;font-variant-numeric:tabular-nums}
+  .gp-line.big .k{color:var(--ink);font-weight:700}
+  .gp-line.big .v{color:var(--green-d);font-size:22px;font-weight:800}
+  .gp-formula{margin-top:12px;font-size:12.5px;color:var(--muted);background:#fff;
+    border:1px dashed var(--line);border-radius:10px;padding:10px 13px}
+  .gp-formula b{color:var(--ink)}
+  .gp-cta{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;justify-content:space-between;
+    background:var(--accent);border-radius:12px;padding:14px 16px}
+  .gp-cta span{font-size:13.5px;font-weight:600;color:var(--green-d)}
+  .gp-btn{display:inline-block;background:var(--green);color:#fff;text-decoration:none;font-weight:700;
+    font-size:14px;padding:10px 18px;border-radius:10px;transition:.15s;border:none;cursor:pointer}
+  .gp-btn:hover{background:var(--green-d)}
+  .gp-smallnote{font-size:11.5px;color:var(--muted);margin-top:12px;text-align:center}
+  footer{margin-top:46px;padding-top:18px;border-top:1px solid var(--line);font-size:13px;color:var(--muted);text-align:center}
+  @media(max-width:480px){h1{font-size:23px}.gp-line.big .v{font-size:19px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar"><span class="dot"></span> Greenpro KSP</div>
+
+  <h1>วิธีคำนวณภาษีหัก ณ ที่จ่าย 2569 ครบทุกกรณี พร้อมเครื่องคำนวณ</h1>
+
+  <div class="bluf">
+    <p style="margin:0">ภาษีหัก ณ ที่จ่าย คำนวณได้ 3 วิธี คือ หักปกติ (ผู้รับรับภาระภาษี) ผู้จ่ายออกภาษีให้แบบตลอดไป และผู้จ่ายออกภาษีให้แบบครั้งเดียว โดยทุกวิธีคำนวณจาก <b>ยอดเงินก่อน VAT</b> คูณอัตราตามประเภทรายจ่าย เช่น บริการ 3% โฆษณา 2% ขนส่ง 1% เช่า 5% แล้วนำส่งกรมสรรพากรภายในวันที่ 7 ของเดือนถัดไป ลองใช้เครื่องคำนวณด้านล่างได้ทันที</p>
+  </div>
+
+  <!-- ============ CALCULATOR ============ -->
+  <div class="gp-card" id="gpwht-root">
+    <div class="gp-head">
+      <h2>เครื่องคำนวณภาษีหัก ณ ที่จ่าย</h2>
+      <p>กรอกยอดเงิน เลือกประเภทรายจ่ายและวิธีคำนวณ ระบบคำนวณภาษีและยอดจ่ายจริงให้ทันที</p>
+    </div>
+    <div class="gp-body">
+      <div class="gp-field">
+        <label>จำนวนเงินก่อน VAT (บาท)</label>
+        <input type="number" id="gp-amount" min="0" step="0.01" value="30000" inputmode="decimal" placeholder="เช่น 30000">
+      </div>
+      <div class="gp-field">
+        <label>ประเภทรายจ่าย <span class="gp-hint">— เลือกเพื่อกำหนดอัตราอัตโนมัติ</span></label>
+        <select id="gp-type">
+          <option value="3">ค่าบริการ / รับจ้างทำของ / รับเหมา — 3%</option>
+          <option value="3">ค่าวิชาชีพอิสระ (ทนาย วิศวกร สถาปนิก บัญชี) — 3%</option>
+          <option value="3">ค่าลิขสิทธิ์ / สิทธิ — 3%</option>
+          <option value="1">ค่าขนส่ง (นิติบุคคล) — 1%</option>
+          <option value="2">ค่าโฆษณา (ผ่านเอเจนซี) — 2%</option>
+          <option value="5">ค่าเช่าอสังหาริมทรัพย์ — 5%</option>
+          <option value="3">ค่าเช่าชั่วคราว / เช่ารถพร้อมคนขับ — 3%</option>
+          <option value="5">ค่าจ้างดารา นักแสดง / เงินรางวัลชิงโชค — 5%</option>
+          <option value="1">ดอกเบี้ยเงินกู้ (นิติบุคคล) — 1%</option>
+          <option value="10">เงินปันผล — 10%</option>
+          <option value="custom">กำหนดอัตราเอง…</option>
+        </select>
+      </div>
+      <div class="gp-rowf">
+        <div class="gp-field" id="gp-customwrap" style="display:none">
+          <label>อัตราภาษี (%)</label>
+          <input type="number" id="gp-customrate" min="0" max="100" step="0.5" placeholder="เช่น 3">
+        </div>
+        <div class="gp-field">
+          <label class="gp-check"><input type="checkbox" id="gp-vat"> รวม VAT 7% ในบิล</label>
+          <span class="gp-hint">ภาษีหัก ณ ที่จ่ายคำนวณจากยอดก่อน VAT เสมอ</span>
+        </div>
+      </div>
+      <div class="gp-field">
+        <label>วิธีคำนวณ</label>
+        <div class="gp-methods" id="gp-methods">
+          <label class="gp-radio on"><input type="radio" name="gp-m" value="normal" checked>
+            <span><span class="t">1. หักปกติ</span><br><span class="d">ผู้รับเป็นผู้รับภาระภาษี (ใช้บ่อยที่สุด)</span></span></label>
+          <label class="gp-radio"><input type="radio" name="gp-m" value="forever">
+            <span><span class="t">2. ออกภาษีให้แบบตลอดไป</span><br><span class="d">ผู้จ่ายออกภาษีให้ ผู้รับได้เต็มจำนวน (Gross-up)</span></span></label>
+          <label class="gp-radio"><input type="radio" name="gp-m" value="once">
+            <span><span class="t">3. ออกภาษีให้แบบครั้งเดียว</span><br><span class="d">ผู้จ่ายออกภาษีให้ครั้งเดียว ผู้รับได้เต็มจำนวน</span></span></label>
+        </div>
+      </div>
+      <div class="gp-result">
+        <div class="gp-line"><span class="k">อัตราภาษีที่ใช้</span><span class="v" id="r-rate">—</span></div>
+        <div class="gp-line"><span class="k">ฐานคำนวณ (ก่อน VAT)</span><span class="v" id="r-base">—</span></div>
+        <div class="gp-line" id="r-vatline" style="display:none"><span class="k">VAT 7%</span><span class="v" id="r-vat">—</span></div>
+        <div class="gp-line big"><span class="k">ภาษีหัก ณ ที่จ่าย</span><span class="v" id="r-tax">—</span></div>
+        <div class="gp-line"><span class="k">เงินได้ที่ระบุในใบ 50 ทวิ</span><span class="v" id="r-cert">—</span></div>
+        <div class="gp-line"><span class="k">ยอดโอนจ่ายจริงให้ผู้รับ</span><span class="v" id="r-pay">—</span></div>
+      </div>
+      <div class="gp-formula" id="gp-formula">กรอกจำนวนเงินเพื่อเริ่มคำนวณ</div>
+      <div class="gp-cta">
+        <span>ไม่อยากคำนวณเอง? ให้ Greenpro KSP ดูแลบัญชีและยื่นภาษีให้ครบวงจร</span>
+        <a class="gp-btn" href="https://www.greenproksp.com/contact/" target="_blank" rel="noopener">ปรึกษาฟรี</a>
+      </div>
+      <div class="gp-smallnote">เครื่องมือนี้ใช้เพื่อประมาณการเบื้องต้น โปรดตรวจสอบกับนักบัญชีก่อนนำส่งจริง · © Greenpro KSP</div>
+    </div>
+  </div>
+  <!-- ============ END CALCULATOR ============ -->
+
+  <div class="toc">
+    <b>ในบทความนี้</b>
+    <a href="#whatis">• ภาษีหัก ณ ที่จ่ายคืออะไร</a><br>
+    <a href="#quick">• สรุป 3 วิธีคำนวณ</a><br>
+    <a href="#rates">• ตารางอัตรา 2569</a><br>
+    <a href="#m1">• วิธีที่ 1 หักปกติ</a> &nbsp;
+    <a href="#m2">• วิธีที่ 2 ออกให้ตลอดไป</a> &nbsp;
+    <a href="#m3">• วิธีที่ 3 ออกให้ครั้งเดียว</a><br>
+    <a href="#vat">• หักก่อน VAT</a> &nbsp;
+    <a href="#after">• หลังหักต้องทำอะไร</a> &nbsp;
+    <a href="#errors">• 6 ข้อผิดพลาด</a> &nbsp;
+    <a href="#faq">• FAQ</a>
+  </div>
+
+  <h2 id="whatis">ภาษีหัก ณ ที่จ่าย คืออะไร</h2>
+  <p>ภาษีหัก ณ ที่จ่าย คือ ภาษีที่ผู้จ่ายเงิน (ซึ่งเป็นนิติบุคคลหรือบริษัท) ต้องหักไว้ส่วนหนึ่งก่อนจ่ายเงินให้ผู้รับ แล้วนำส่งกรมสรรพากรแทนผู้รับเงิน เป็นการจัดเก็บภาษีล่วงหน้า ทำให้รัฐได้รับภาษีอย่างต่อเนื่อง และผู้รับเงินไม่ต้องจ่ายภาษีก้อนใหญ่ทีเดียวตอนสิ้นปี</p>
+  <p>ผู้รับเงินจะได้รับเงินไม่เต็มจำนวน พร้อม <b>หนังสือรับรองการหักภาษี ณ ที่จ่าย (ใบ 50 ทวิ)</b> ไว้เป็นหลักฐานยื่นภาษีประจำปี เพื่อขอเครดิตหรือขอคืนภาษีส่วนที่ถูกหักไว้</p>
+
+  <h2 id="quick">ภาษีหัก ณ ที่จ่าย คำนวณยังไง (สรุปเร็ว)</h2>
+  <table>
+    <tr><th>วิธีคำนวณ</th><th>ใครรับภาระภาษี</th><th>สูตร</th><th>ผู้รับเงินได้รับ</th></tr>
+    <tr><td>1. หักปกติ</td><td>ผู้รับเงิน</td><td>เงินที่จ่าย × อัตราภาษี</td><td>เงินที่จ่าย − ภาษี</td></tr>
+    <tr><td>2. ออกให้ตลอดไป</td><td>ผู้จ่ายเงิน</td><td>เงินที่จ่าย × อัตรา ÷ (100 − อัตรา)</td><td>เต็มจำนวน</td></tr>
+    <tr><td>3. ออกให้ครั้งเดียว</td><td>ผู้จ่ายเงิน</td><td>(เงินที่จ่าย + ภาษีงวดแรก) × อัตรา</td><td>เต็มจำนวน</td></tr>
+  </table>
+  <p>ในทางปฏิบัติ ส่วนใหญ่ใช้ <b>วิธีที่ 1 หักปกติ</b> ส่วนวิธีที่ 2 และ 3 ใช้เมื่อมีข้อตกลงว่าผู้จ่ายจะออกภาษีให้</p>
+
+  <h2 id="rates">อัตราภาษีหัก ณ ที่จ่าย 2569 (ตารางครบ)</h2>
+  <table>
+    <tr><th>ประเภทรายจ่าย</th><th>อัตราหัก</th><th>ผู้รับเงิน</th><th>หมายเหตุ</th></tr>
+    <tr><td>เงินเดือน / ค่าจ้างพนักงานประจำ</td><td>ก้าวหน้า (อาจ 0%)</td><td>บุคคลธรรมดา</td><td>ตามภาษีเงินได้บุคคลธรรมดาหลังหักลดหย่อน</td></tr>
+    <tr><td>ค่าจ้างทำของ / รับเหมา / บริการ</td><td>3%</td><td>บุคคล / นิติบุคคล</td><td>ค่าจ้างกราฟิก ช่างภาพ ตกแต่ง ซ่อมแซม</td></tr>
+    <tr><td>ค่าวิชาชีพอิสระ</td><td>3%</td><td>บุคคล / นิติบุคคล</td><td>ทนาย วิศวกร สถาปนิก นักบัญชี ฯลฯ</td></tr>
+    <tr><td>ค่าลิขสิทธิ์ / สิทธิ</td><td>3%</td><td>บุคคล / นิติบุคคล</td><td>งานเขียน เพลง ซอฟต์แวร์ ลิขสิทธิ์</td></tr>
+    <tr><td>ค่าขนส่ง</td><td>1%</td><td>นิติบุคคลผู้ให้บริการขนส่ง</td><td>ยกเว้นไปรษณีย์ไทย</td></tr>
+    <tr><td>ค่าโฆษณา</td><td>2%</td><td>บริษัทรับโฆษณา / เอเจนซี</td><td>ลงสื่อสิ่งพิมพ์ / โซเชียลผ่านเอเจนซี</td></tr>
+    <tr><td>ค่าเช่าอสังหาริมทรัพย์</td><td>5%</td><td>บุคคล / นิติบุคคล</td><td>ผู้เช่าถือกุญแจเข้าออกเองได้</td></tr>
+    <tr><td>ค่าเช่าชั่วคราว / เช่ารถพร้อมคนขับ</td><td>3%</td><td>บุคคล / นิติบุคคล</td><td>นับเป็นค่าบริการ</td></tr>
+    <tr><td>ค่าจ้างดารา / เงินรางวัลชิงโชค</td><td>5%</td><td>บุคคล / นิติบุคคล</td><td>อาชีพเพื่อการบันเทิง / รางวัลแข่งขัน</td></tr>
+    <tr><td>ดอกเบี้ยเงินกู้</td><td>1%</td><td>นิติบุคคล</td><td>กรณีจ่ายให้นิติบุคคล</td></tr>
+    <tr><td>เงินปันผล</td><td>10%</td><td>บุคคล / นิติบุคคล</td><td>ตามเงื่อนไขที่กฎหมายกำหนด</td></tr>
+  </table>
+  <div class="note">เกร็ดสำคัญ: รายจ่ายประเภทเดียวกันอาจหักคนละอัตราขึ้นกับลักษณะงานจริง เช่น เช่าสถานที่จัดสัมมนาชั่วคราว หัก 3% (ถือเป็นบริการ) แต่เช่าสำนักงานที่ถือกุญแจเอง หัก 5%</div>
+
+  <h2 id="m1">วิธีที่ 1: หักปกติ (ผู้รับเป็นผู้รับภาระภาษี)</h2>
+  <p>ผู้จ่ายเงินหักภาษีออกจากยอดที่ต้องจ่าย แล้วจ่ายเงินส่วนที่เหลือให้ผู้รับ</p>
+  <p><b>สูตร:</b> ภาษีหัก ณ ที่จ่าย = เงินที่จ่าย × อัตราภาษี</p>
+  <p><b>ตัวอย่าง:</b> จ้างนักบัญชีอิสระ 30,000 บาท หัก 3%</p>
+  <ul><li>ภาษี = 30,000 × 3% = <b>900 บาท</b></li><li>ผู้รับได้จริง = 30,000 − 900 = <b>29,100 บาท</b></li></ul>
+
+  <h2 id="m2">วิธีที่ 2: ผู้จ่ายออกภาษีให้แบบตลอดไป (Gross-up)</h2>
+  <p>ใช้เมื่อผู้จ่ายตกลงรับภาระภาษีแทนผู้รับ เพื่อให้ผู้รับได้เงินเต็มจำนวน</p>
+  <p><b>สูตร:</b> ภาษี = เงินที่จ่าย × อัตรา ÷ (100 − อัตรา)</p>
+  <p><b>ตัวอย่าง:</b> จ้างนักบัญชีอิสระ 30,000 บาท ออกภาษีให้ หัก 3%</p>
+  <ul><li>ภาษี = 30,000 × 3 ÷ 97 = <b>927.84 บาท</b></li><li>ผู้รับได้เต็ม = <b>30,000 บาท</b> · ใบ 50 ทวิ ระบุเงินได้ 30,927.84 บาท</li></ul>
+
+  <h2 id="m3">วิธีที่ 3: ผู้จ่ายออกภาษีให้แบบครั้งเดียว</h2>
+  <p>ผู้จ่ายออกภาษีให้เฉพาะครั้งนั้นครั้งเดียว ไม่คำนวณทบแบบตลอดไป</p>
+  <p><b>สูตร:</b> ภาษี = (เงินที่จ่าย + ภาษีงวดแรก) × อัตรา</p>
+  <p><b>ตัวอย่าง:</b> จ้างวิทยากร 20,000 บาท ออกภาษีให้ครั้งเดียว หัก 3%</p>
+  <ul><li>ภาษีงวดแรก = 20,000 × 3% = 600 บาท</li><li>ภาษี = (20,000 + 600) × 3% = <b>618 บาท</b> · ผู้รับได้เต็ม 20,000 บาท</li></ul>
+
+  <h2 id="vat">หักจากยอดก่อน VAT หรือหลัง VAT</h2>
+  <p>ภาษีหัก ณ ที่จ่ายต้องคำนวณจาก <b>ยอดเงินก่อน VAT เสมอ</b> เพราะ VAT เป็นภาษีที่ต้องนำส่งรัฐอยู่แล้ว</p>
+  <p><b>ตัวอย่าง:</b> ค่าบริการ 10,000 + VAT 7% = 10,700 บาท หัก 3% จาก 10,000 = <b>300 บาท</b> (ไม่ใช่จาก 10,700)</p>
+  <p>ต้องหักภาษีเมื่อยอดจ่ายต่อผู้รับรายเดียวกัน <b>ตั้งแต่ 1,000 บาทขึ้นไป</b> รวมถึงกรณีแบ่งจ่ายหลายงวดหรือสัญญาต่อเนื่องที่ยอดรวมถึงเกณฑ์</p>
+
+  <h2 id="after">หลังหักภาษีแล้วต้องทำอะไรต่อ</h2>
+  <ol>
+    <li><b>ออกใบ 50 ทวิ</b> (มาตรา 50 ทวิ) ให้ผู้รับเงินทุกครั้ง โดยปกติออกอย่างน้อย 4 ฉบับ</li>
+    <li><b>ยื่นแบบรายเดือน</b> ภายในวันที่ 7 ของเดือนถัดไป — <b>ภ.ง.ด.3</b> (ผู้รับเป็นบุคคลธรรมดา) / <b>ภ.ง.ด.53</b> (ผู้รับเป็นนิติบุคคล) หากยื่นผ่าน e-Filing ขยายเวลาอีก 8 วัน</li>
+    <li><b>พิจารณาใช้ e-Withholding Tax</b> โอนเงินพร้อมส่งข้อมูลภาษีอัตโนมัติ ไม่ต้องออกใบ 50 ทวิ และไม่ต้องยื่นรายเดือน/รายปีเอง</li>
+  </ol>
+  <div class="note">อัปเดต 2569: มาตรการลดอัตรา e-Withholding Tax เหลือ 1% สิ้นสุด 31 ธันวาคม 2568 ตั้งแต่ 1 มกราคม 2569 อัตรากลับมาอยู่ที่ 3% ตามปกติ ควรตรวจสอบอัตราในระบบให้ตรงปีปัจจุบัน</div>
+
+  <h2 id="errors">6 ข้อผิดพลาดที่ทำให้ธุรกิจโดนเบี้ยปรับ</h2>
+  <ol>
+    <li><b>หักผิดอัตรา</b> เช่น จ้างฟรีแลนซ์แล้วหัก 5% แทน 3%</li>
+    <li><b>หักจากยอดรวม VAT</b> ต้องหักจากยอดก่อน VAT เท่านั้น</li>
+    <li><b>ไม่ออกใบ 50 ทวิ</b> ผู้จ่ายมีหน้าที่ออกให้ผู้รับทุกครั้ง</li>
+    <li><b>ยื่น ภ.ง.ด.3/53 ล่าช้า</b> เกินวันที่ 7 ของเดือนถัดไป เสียค่าปรับและเงินเพิ่ม</li>
+    <li><b>เข้าใจว่าผู้รับต้องจัดการเอง</b> กฎหมายกำหนดให้ผู้จ่ายเป็นผู้หักและนำส่ง</li>
+    <li><b>ลืมหักเมื่อถึงเกณฑ์ 1,000 บาท</b> โดยเฉพาะกรณีแบ่งจ่ายหรือสัญญาต่อเนื่อง</li>
+  </ol>
+
+  <h2 id="faq">คำถามที่พบบ่อย (FAQ)</h2>
+  <h3>ภาษีหัก ณ ที่จ่ายคำนวณจากยอดก่อนหรือหลัง VAT?</h3>
+  <p>จากยอดก่อน VAT เสมอ เช่น ค่าบริการ 10,000 + VAT 7% หัก 3% จาก 10,000 = 300 บาท</p>
+  <h3>จ้างฟรีแลนซ์ต้องหักกี่เปอร์เซ็นต์?</h3>
+  <p>โดยทั่วไปหัก 3% สำหรับค่าจ้างทำของหรือบริการ</p>
+  <h3>ภ.ง.ด.3 กับ ภ.ง.ด.53 ต่างกันอย่างไร?</h3>
+  <p>ภ.ง.ด.3 ใช้เมื่อผู้รับเป็นบุคคลธรรมดา ส่วน ภ.ง.ด.53 ใช้เมื่อผู้รับเป็นนิติบุคคล ยื่นภายในวันที่ 7 ของเดือนถัดไป</p>
+  <h3>บริษัทออกภาษีแทนผู้รับได้ไหม?</h3>
+  <p>ได้ มี 2 แบบ คือ ออกให้ตลอดไป (Gross-up) และออกให้ครั้งเดียว โดยผู้รับได้เงินเต็มจำนวน</p>
+
+  <footer>
+    © Greenpro KSP · เนื้อหาเพื่อการศึกษา โปรดตรวจสอบกับนักบัญชีก่อนนำส่งจริง<br>
+    <a href="https://www.greenproksp.com/" style="color:var(--green-d)">www.greenproksp.com</a>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var root=document.getElementById('gpwht-root');
+  var amount=root.querySelector('#gp-amount');
+  var type=root.querySelector('#gp-type');
+  var customWrap=root.querySelector('#gp-customwrap');
+  var customRate=root.querySelector('#gp-customrate');
+  var vat=root.querySelector('#gp-vat');
+  var methods=root.querySelectorAll('input[name="gp-m"]');
+  var fmt=function(n){return (isFinite(n)?n:0).toLocaleString('th-TH',{minimumFractionDigits:2,maximumFractionDigits:2})+' บาท';};
+  function getRate(){return type.value==='custom'?(parseFloat(customRate.value)||0):(parseFloat(type.value)||0);}
+  function method(){var m='normal';methods.forEach(function(r){if(r.checked)m=r.value;});return m;}
+  function calc(){
+    var base=parseFloat(amount.value)||0,rate=getRate(),m=method();
+    var tax=0,cert=base,recv=base;
+    if(m==='normal'){tax=base*rate/100;cert=base;recv=base-tax;}
+    else if(m==='forever'){tax=rate<100?base*rate/(100-rate):0;cert=base+tax;recv=base;}
+    else{var first=base*rate/100;tax=(base+first)*rate/100;cert=base+tax;recv=base;}
+    var vatAmt=vat.checked?base*0.07:0,pay=recv+vatAmt;
+    root.querySelector('#r-rate').textContent=rate?rate+'%':'—';
+    root.querySelector('#r-base').textContent=fmt(base);
+    root.querySelector('#r-vatline').style.display=vat.checked?'flex':'none';
+    root.querySelector('#r-vat').textContent=fmt(vatAmt);
+    root.querySelector('#r-tax').textContent=fmt(tax);
+    root.querySelector('#r-cert').textContent=fmt(cert);
+    root.querySelector('#r-pay').textContent=fmt(pay);
+    var f='';
+    if(m==='normal')f='<b>หักปกติ:</b> '+base.toLocaleString()+' × '+rate+'% = <b>'+fmt(tax)+'</b> · ผู้รับได้ = ฐาน − ภาษี';
+    else if(m==='forever')f='<b>ออกให้ตลอดไป:</b> '+base.toLocaleString()+' × '+rate+' ÷ '+(100-rate)+' = <b>'+fmt(tax)+'</b> · ผู้รับได้เต็มจำนวน';
+    else f='<b>ออกให้ครั้งเดียว:</b> ('+base.toLocaleString()+' + '+(base*rate/100).toLocaleString()+') × '+rate+'% = <b>'+fmt(tax)+'</b> · ผู้รับได้เต็มจำนวน';
+    if(vat.checked)f+='<br>VAT 7% = '+fmt(vatAmt)+' (ไม่นำมาคำนวณภาษีหัก ณ ที่จ่าย)';
+    root.querySelector('#gp-formula').innerHTML=base?f:'กรอกจำนวนเงินเพื่อเริ่มคำนวณ';
+  }
+  type.addEventListener('change',function(){customWrap.style.display=(type.value==='custom')?'block':'none';calc();});
+  [amount,customRate,vat].forEach(function(el){el.addEventListener('input',calc);});
+  methods.forEach(function(r){r.addEventListener('change',function(){
+    root.querySelectorAll('.gp-radio').forEach(function(l){l.classList.remove('on');});
+    r.closest('.gp-radio').classList.add('on');calc();});});
+  calc();
+})();
+</script>
+</body>
+</html>
