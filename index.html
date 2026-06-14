@@ -112,6 +112,19 @@
     transition:.18s;border:none;cursor:pointer}
   .gp-btn:hover{background:var(--primary-d);transform:translateY(-1px);box-shadow:0 6px 16px rgba(32,125,63,.25)}
   .gp-smallnote{font-size:11.5px;color:var(--muted);margin-top:12px;text-align:center}
+  .gp-actions{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
+  .gp-btn2{display:inline-flex;align-items:center;gap:6px;background:#fff;color:var(--primary-d);
+    border:1px solid var(--primary);font-family:var(--f-label);font-weight:600;font-size:14px;
+    padding:9px 16px;border-radius:var(--r-pill);cursor:pointer;transition:.15s}
+  .gp-btn2:hover{background:var(--mint)}
+  .wht50{margin-top:14px;border:1.5px dashed var(--primary);border-radius:var(--r-control);padding:14px 16px;background:#fff}
+  .wht50-h{font-family:var(--f-label);font-weight:600;font-size:14px;color:var(--primary-d);margin-bottom:8px}
+  .wht50 .row{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-bottom:1px dashed var(--border);font-size:15.5px}
+  .wht50 .row:last-child{border-bottom:none}
+  .wht50 .row .lbl{color:var(--muted)}
+  .wht50 .row .val{font-family:var(--f-label);font-weight:600;text-align:right}
+  @media print{.hero,.toc,.gp-cta,.footer-band,.sitefoot,.gp-actions,.badges{display:none!important}
+    body{font-size:14px}.gp-card{box-shadow:none}}
   .cmp{border:1px solid var(--border);border-radius:var(--r-card);padding:16px 18px;margin:12px 0}
   .cmp-good{background:var(--mint);border-color:#bfe6cd}
   .cmp-bad{background:#fdeceb;border-color:#f6c9c5}
@@ -209,11 +222,49 @@
         <div class="gp-line"><span class="k">ยอดโอนจ่ายจริงให้ผู้รับ</span><span class="v" id="r-pay">—</span></div>
       </div>
       <div class="gp-formula" id="gp-formula">กรอกจำนวนเงินเพื่อเริ่มคำนวณ</div>
+      <div class="gp-actions">
+        <button type="button" class="gp-btn2" id="gp-copy">คัดลอกผล</button>
+        <button type="button" class="gp-btn2" id="gp-print">พิมพ์</button>
+      </div>
+      <div class="wht50">
+        <div class="wht50-h">ตัวอย่างการกรอกใบ 50 ทวิ (หนังสือรับรองหัก ณ ที่จ่าย)</div>
+        <div class="row"><span class="lbl">ประเภทเงินได้</span><span class="val" id="w50-type">—</span></div>
+        <div class="row"><span class="lbl">จำนวนเงินที่จ่าย</span><span class="val" id="w50-cert">—</span></div>
+        <div class="row"><span class="lbl">ภาษีที่หักและนำส่งไว้</span><span class="val" id="w50-tax">—</span></div>
+      </div>
       <div class="gp-cta">
         <span>ไม่อยากคำนวณเอง? ให้ Greenpro KSP ดูแลบัญชีและยื่นภาษีให้ครบวงจร</span>
         <a class="gp-btn" href="https://www.greenproksp.com/contact/" target="_blank" rel="noopener">ปรึกษาฟรี</a>
       </div>
       <div class="gp-smallnote">เครื่องมือนี้ใช้เพื่อประมาณการเบื้องต้น โปรดตรวจสอบกับนักบัญชีก่อนนำส่งจริง · © Greenpro KSP</div>
+    </div>
+  </div>
+
+  <div class="gp-card reveal" id="gp-reverse">
+    <div class="gp-head">
+      <h2>เครื่องคำนวณย้อนกลับ: อยากให้ผู้รับได้สุทธิเท่าไหร่?</h2>
+      <p>กรอกยอดที่อยากให้ผู้รับได้รับจริง ระบบจะคำนวณราคาที่ต้องตั้ง (แบบออกภาษีให้ตลอดไป ผู้รับได้เต็ม)</p>
+    </div>
+    <div class="gp-body">
+      <div class="gp-rowf">
+        <div class="gp-field">
+          <label>ยอดสุทธิที่อยากให้ผู้รับได้ (บาท)</label>
+          <input type="text" id="rv-net" inputmode="decimal" value="50,000" placeholder="เช่น 50,000" autocomplete="off">
+        </div>
+        <div class="gp-field">
+          <label>อัตราภาษี</label>
+          <select id="rv-rate">
+            <option value="1">1%</option><option value="2">2%</option>
+            <option value="3" selected>3%</option><option value="5">5%</option><option value="10">10%</option>
+          </select>
+        </div>
+      </div>
+      <div class="gp-result">
+        <div class="gp-line big"><span class="k">ราคาที่ต้องตั้ง (ก่อนหัก)</span><span class="v" id="rv-base">—</span></div>
+        <div class="gp-line"><span class="k">ภาษีหัก ณ ที่จ่าย</span><span class="v" id="rv-tax">—</span></div>
+        <div class="gp-line"><span class="k">ผู้รับได้รับสุทธิ</span><span class="v" id="rv-recv">—</span></div>
+      </div>
+      <div class="gp-formula">สูตร: ราคาที่ต้องตั้ง = ยอดสุทธิ ÷ (1 − อัตราภาษี) เพื่อให้ผู้รับได้เต็มจำนวนแบบ "ออกให้ตลอดไป"</div>
     </div>
   </div>
 
@@ -272,33 +323,47 @@
   <div class="reveal">
   <p>ผู้จ่ายเงินหักภาษีออกจากยอดที่ต้องจ่าย แล้วจ่ายเงินส่วนที่เหลือให้ผู้รับ</p>
   <p><b>สูตร:</b> ภาษีหัก ณ ที่จ่าย = เงินที่จ่าย × อัตราภาษี</p>
-  <p><b>ตัวอย่าง:</b> จ้างนักบัญชีอิสระ 30,000 บาท หัก 3%</p>
-  <ul><li>ภาษี = 30,000 × 3% = <span class="em">900 บาท</span></li><li>ผู้รับได้จริง = 30,000 − 900 = <span class="em">29,100 บาท</span></li></ul>
+  <p><b>ตัวอย่าง (อิงตัวเลขด้านบน):</b> ฐาน <span class="exB">30,000</span> บาท หัก <span class="exR">3</span>%</p>
+  <ul><li>ภาษี = ฐาน × อัตรา = <span class="em" id="ex1-tax">900.00 บาท</span></li><li>ผู้รับได้จริง = ฐาน − ภาษี = <span class="em" id="ex1-recv">29,100.00 บาท</span></li></ul>
   </div>
 
   <h2 id="m2" class="reveal">วิธีที่ 2: ผู้จ่ายออกภาษีให้แบบตลอดไป (Gross-up)</h2>
   <div class="reveal">
   <p>ใช้เมื่อผู้จ่ายตกลงรับภาระภาษีแทนผู้รับ เพื่อให้ผู้รับได้เงินเต็มจำนวน</p>
   <p><b>สูตร:</b> ภาษี = เงินที่จ่าย × อัตรา ÷ (100 − อัตรา)</p>
-  <p><b>ตัวอย่าง:</b> จ้างนักบัญชีอิสระ 30,000 บาท ออกภาษีให้ หัก 3%</p>
-  <ul><li>ภาษี = 30,000 × 3 ÷ 97 = <span class="em">927.84 บาท</span></li><li>ผู้รับได้เต็ม = <span class="em">30,000 บาท</span> · ใบ 50 ทวิ ระบุเงินได้ 30,927.84 บาท</li></ul>
+  <p><b>ตัวอย่าง (อิงตัวเลขด้านบน):</b> ฐาน <span class="exB">30,000</span> บาท ออกภาษีให้ หัก <span class="exR">3</span>%</p>
+  <ul><li>ภาษี = ฐาน × อัตรา ÷ (100 − อัตรา) = <span class="em" id="ex2-tax">927.84 บาท</span></li><li>ผู้รับได้เต็ม = <span class="em" id="ex2-recv">30,000.00 บาท</span> · เงินได้ในใบ 50 ทวิ = <span id="ex2-cert">30,927.84 บาท</span></li></ul>
   </div>
 
   <h2 id="m3" class="reveal">วิธีที่ 3: ผู้จ่ายออกภาษีให้แบบครั้งเดียว</h2>
   <div class="reveal">
   <p>ผู้จ่ายออกภาษีให้เฉพาะครั้งนั้นครั้งเดียว ไม่คำนวณทบแบบตลอดไป จุดสำคัญคือ <b>ผู้รับยังได้เงินไม่เต็มจำนวน</b> เพราะภาษีคำนวณบนฐานที่บวกภาษีงวดแรกแล้ว</p>
   <p><b>สูตร:</b> ภาษี = (เงินที่จ่าย + ภาษีงวดแรก) × อัตรา</p>
-  <p><b>ตัวอย่าง:</b> จ้างวิทยากร 20,000 บาท ออกภาษีให้ครั้งเดียว หัก 3%</p>
+  <p><b>ตัวอย่าง (อิงตัวเลขด้านบน):</b> ฐาน <span class="exB">30,000</span> บาท ออกภาษีให้ครั้งเดียว หัก <span class="exR">3</span>%</p>
   <ul>
-    <li>ภาษีงวดแรก = 20,000 × 3% = 600 บาท</li>
-    <li>เงินได้ในใบ 50 ทวิ = 20,000 + 600 = 20,600 บาท</li>
-    <li>ภาษีหัก ณ ที่จ่าย = 20,600 × 3% = <span class="em">618 บาท</span></li>
-    <li>ผู้รับได้รับจริง = 20,600 − 618 = <span class="em">19,982 บาท</span> (กิจการออกภาษีให้ 600 บาท ส่วนต่าง 18 บาท ผู้รับยังรับภาระ)</li>
+    <li>ภาษีงวดแรก = ฐาน × อัตรา = <span id="ex3-first">900.00 บาท</span></li>
+    <li>เงินได้ในใบ 50 ทวิ = ฐาน + ภาษีงวดแรก = <span id="ex3-cert">30,900.00 บาท</span></li>
+    <li>ภาษีหัก ณ ที่จ่าย = เงินได้ × อัตรา = <span class="em" id="ex3-tax">927.00 บาท</span></li>
+    <li>ผู้รับได้รับจริง = เงินได้ − ภาษี = <span class="em" id="ex3-recv">29,973.00 บาท</span> (กิจการออกภาษีให้ <span id="ex3-first2">900.00 บาท</span> ส่วนต่าง <span id="ex3-diff">27.00 บาท</span> ผู้รับยังรับภาระ)</li>
   </ul>
   </div>
 
   <h2 id="compare" class="reveal">สรุปความต่าง: "ออกให้ตลอดไป" vs "ออกให้ครั้งเดียว" (ควรใช้แบบไหน?)</h2>
   <div class="reveal">
+  <p>ตารางด้านล่างเปรียบเทียบทั้ง 3 วิธี โดยคำนวณจากตัวเลขที่คุณกรอกด้านบนแบบเรียลไทม์</p>
+  <div class="tbl"><table>
+    <tr><th>วิธีคำนวณ</th><th>ฐานเงินได้ (ใบ 50 ทวิ)</th><th>ภาษีหัก ณ ที่จ่าย</th><th>ผู้รับได้รับสุทธิ</th></tr>
+    <tr><td class="cellkey">หักปกติ</td><td id="c-n-cert">—</td><td id="c-n-tax">—</td><td id="c-n-recv">—</td></tr>
+    <tr><td class="cellkey">ออกให้ครั้งเดียว</td><td id="c-o-cert">—</td><td id="c-o-tax">—</td><td id="c-o-recv">—</td></tr>
+    <tr><td class="cellkey">ออกให้ตลอดไป</td><td id="c-f-cert">—</td><td id="c-f-tax">—</td><td id="c-f-recv">—</td></tr>
+  </table></div>
+  <div class="tbl"><table>
+    <tr><th>ภาษีมูลค่าเพิ่ม (VAT)</th><th>จำนวน</th></tr>
+    <tr><td>ยอดก่อน VAT</td><td id="v-base">—</td></tr>
+    <tr><td>VAT 7%</td><td id="v-vat">—</td></tr>
+    <tr><td class="cellkey">ยอดรวมในบิล (ฐาน + VAT)</td><td id="v-total" class="cellkey">—</td></tr>
+  </table></div>
+  <p style="font-size:14px;color:var(--muted)">หมายเหตุ: VAT จ่ายให้ผู้รับเต็มจำนวนเสมอ (ผู้รับนำส่งกรมสรรพากรเอง) และไม่นำมาคำนวณภาษีหัก ณ ที่จ่าย หากมี VAT ให้บวกยอด VAT เข้ากับ "ผู้รับได้รับสุทธิ" ของทุกวิธี</p>
   <div class="cmp cmp-good">
     <div class="cmp-h">✅ แนะนำให้ใช้: ออกให้ตลอดไป (Gross-up)</div>
     <p><b>ผลลัพธ์:</b> ผู้รับเงินจะได้เงินสดครบถ้วนเต็มจำนวนเป๊ะตามที่ตกลงกันไว้ (เช่น ตกลง 50,000 ได้ 50,000) เพราะบริษัทใช้สูตรคณิตศาสตร์คำนวณยอมแบกรับภาษีที่งอกทบซ้ำทุกทอดให้ทั้งหมด</p>
@@ -315,7 +380,7 @@
   <h2 id="vat" class="reveal">หักจากยอดก่อน VAT หรือหลัง VAT</h2>
   <div class="reveal">
   <p>ภาษีหัก ณ ที่จ่ายต้องคำนวณจาก <b>ยอดเงินก่อน VAT เสมอ</b> เพราะ VAT เป็นภาษีที่ต้องนำส่งรัฐอยู่แล้ว</p>
-  <p><b>ตัวอย่าง:</b> ค่าบริการ 10,000 + VAT 7% = 10,700 บาท หัก 3% จาก 10,000 = <span class="em">300 บาท</span> (ไม่ใช่จาก 10,700)</p>
+  <p><b>ตัวอย่าง (อิงตัวเลขด้านบน):</b> ค่าบริการ <span class="exB">30,000</span> + VAT 7% = <span id="exV-total">32,100.00 บาท</span> แต่หัก <span class="exR">3</span>% จากฐานก่อน VAT = <span class="em" id="exV-tax">900.00 บาท</span> (ไม่ใช่จากยอดรวม VAT)</p>
   <p>ต้องหักภาษีเมื่อยอดจ่ายต่อผู้รับรายเดียวกัน <b>ตั้งแต่ 1,000 บาทขึ้นไป</b> รวมถึงกรณีแบ่งจ่ายหลายงวดหรือสัญญาต่อเนื่องที่ยอดรวมถึงเกณฑ์</p>
   </div>
 
@@ -378,13 +443,35 @@
   function getRate(){return type.value==='custom'?(parseFloat(customRate.value)||0):(parseFloat(type.value)||0);}
   function method(){var m='normal';methods.forEach(function(r){if(r.checked)m=r.value;});return m;}
   function fmtInput(){var v=amount.value.replace(/[^0-9.]/g,'');var p=v.split('.');p[0]=p[0].replace(/\B(?=(\d{3})+(?!\d))/g,',');amount.value=p.length>1?p[0]+'.'+p.slice(1).join(''):p[0];}
-  function calc(){
-    var base=parseFloat(amount.value.replace(/,/g,''))||0,rate=getRate(),m=method();
+  function compute(base,rate,m){
     var tax=0,cert=base,recv=base;
     if(m==='normal'){tax=base*rate/100;cert=base;recv=base-tax;}
     else if(m==='forever'){tax=rate<100?base*rate/(100-rate):0;cert=base+tax;recv=base;}
     else{var first=base*rate/100;cert=base+first;tax=cert*rate/100;recv=cert-tax;}
+    return {tax:tax,cert:cert,recv:recv};
+  }
+  function st(id,v){var e=document.getElementById(id);if(e)e.textContent=fmt(v);}
+  function calc(){
+    var base=parseFloat(amount.value.replace(/,/g,''))||0,rate=getRate(),m=method();
+    var r=compute(base,rate,m),tax=r.tax,cert=r.cert,recv=r.recv;
     var vatAmt=vat.checked?base*0.07:0,pay=recv+vatAmt;
+    var n=compute(base,rate,'normal'),o=compute(base,rate,'once'),fv=compute(base,rate,'forever');
+    st('c-n-cert',n.cert);st('c-n-tax',n.tax);st('c-n-recv',n.recv);
+    st('c-o-cert',o.cert);st('c-o-tax',o.tax);st('c-o-recv',o.recv);
+    st('c-f-cert',fv.cert);st('c-f-tax',fv.tax);st('c-f-recv',fv.recv);
+    st('v-base',base);st('v-vat',vatAmt);st('v-total',base+vatAmt);
+    var bStr=base.toLocaleString('th-TH'),first=base*rate/100;
+    document.querySelectorAll('.exB').forEach(function(e){e.textContent=bStr;});
+    document.querySelectorAll('.exR').forEach(function(e){e.textContent=rate;});
+    st('ex1-tax',n.tax);st('ex1-recv',n.recv);
+    st('ex2-tax',fv.tax);st('ex2-recv',fv.recv);st('ex2-cert',fv.cert);
+    st('ex3-first',first);st('ex3-cert',o.cert);st('ex3-tax',o.tax);st('ex3-recv',o.recv);
+    st('ex3-first2',first);st('ex3-diff',o.tax-first);
+    st('exV-total',base+base*0.07);st('exV-tax',first);
+    var ti=type.options[type.selectedIndex];
+    var typeLabel=type.value==='custom'?'กำหนดเอง':(ti?ti.text.split(' — ')[0]:'—');
+    var w50t=document.getElementById('w50-type');if(w50t)w50t.textContent=typeLabel;
+    st('w50-cert',cert);st('w50-tax',tax);
     root.querySelector('#r-rate').textContent=rate?rate+'%':'—';
     root.querySelector('#r-base').textContent=fmt(base);
     root.querySelector('#r-vatline').style.display=vat.checked?'flex':'none';
@@ -406,6 +493,22 @@
     root.querySelectorAll('.gp-radio').forEach(function(l){l.classList.remove('on');});
     r.closest('.gp-radio').classList.add('on');calc();});});
   calc();
+  var rvNet=document.getElementById('rv-net'),rvRate=document.getElementById('rv-rate');
+  function rvFmtInput(){var v=rvNet.value.replace(/[^0-9.]/g,'');var p=v.split('.');p[0]=p[0].replace(/\B(?=(\d{3})+(?!\d))/g,',');rvNet.value=p.length>1?p[0]+'.'+p.slice(1).join(''):p[0];}
+  function rvCalc(){var net=parseFloat(rvNet.value.replace(/,/g,''))||0;var r=parseFloat(rvRate.value)||0;var b=r<100?net/(1-r/100):0;st('rv-base',b);st('rv-tax',b-net);st('rv-recv',net);}
+  if(rvNet&&rvRate){rvNet.addEventListener('input',function(){rvFmtInput();rvCalc();});rvRate.addEventListener('change',rvCalc);rvCalc();}
+  var printBtn=document.getElementById('gp-print');
+  if(printBtn)printBtn.addEventListener('click',function(){window.print();});
+  var copyBtn=document.getElementById('gp-copy');
+  if(copyBtn)copyBtn.addEventListener('click',function(){
+    var base=parseFloat(amount.value.replace(/,/g,''))||0,rate=getRate(),m=method(),r=compute(base,rate,m);
+    var mName=m==='normal'?'หักปกติ':(m==='forever'?'ออกให้ตลอดไป':'ออกให้ครั้งเดียว');
+    var vatAmt=vat.checked?base*0.07:0;
+    var txt='สรุปภาษีหัก ณ ที่จ่าย ('+mName+')\nฐานก่อน VAT: '+fmt(base)+'\nอัตรา: '+rate+'%\nภาษีหัก ณ ที่จ่าย: '+fmt(r.tax)+'\nเงินได้ในใบ 50 ทวิ: '+fmt(r.cert)+'\n'+(vat.checked?'VAT 7%: '+fmt(vatAmt)+'\n':'')+'ยอดโอนจ่ายจริงให้ผู้รับ: '+fmt(r.recv+vatAmt)+'\n— คำนวณโดย Greenpro KSP';
+    function done(){var o=copyBtn.textContent;copyBtn.textContent='คัดลอกแล้ว ✓';setTimeout(function(){copyBtn.textContent=o;},1500);}
+    function fb(){var ta=document.createElement('textarea');ta.value=txt;document.body.appendChild(ta);ta.select();try{document.execCommand('copy');done();}catch(e){}document.body.removeChild(ta);}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(done,fb);}else{fb();}
+  });
   var els=document.querySelectorAll('.reveal');
   if('IntersectionObserver' in window){
     var io=new IntersectionObserver(function(es){es.forEach(function(e){
@@ -413,6 +516,48 @@
     els.forEach(function(el){io.observe(el);});
   } else { els.forEach(function(el){el.classList.add('in');}); }
 })();
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "เครื่องคำนวณภาษีหัก ณ ที่จ่าย",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Web",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "THB" },
+      "publisher": { "@type": "Organization", "name": "Greenpro KSP", "url": "https://www.greenproksp.com/" }
+    },
+    {
+      "@type": "Article",
+      "headline": "วิธีคำนวณภาษีหัก ณ ที่จ่าย 2569 ครบทุกกรณี พร้อมเครื่องคำนวณ",
+      "inLanguage": "th",
+      "author": { "@type": "Organization", "name": "Greenpro KSP" },
+      "publisher": { "@type": "Organization", "name": "Greenpro KSP", "logo": { "@type": "ImageObject", "url": "https://www.greenproksp.com/logo.png" } },
+      "datePublished": "2026-06-14",
+      "dateModified": "2026-06-14"
+    },
+    {
+      "@type": "HowTo",
+      "name": "วิธีคำนวณภาษีหัก ณ ที่จ่าย",
+      "step": [
+        { "@type": "HowToStep", "name": "เลือกอัตราตามประเภทรายจ่าย", "text": "บริการ 3% โฆษณา 2% ขนส่ง 1% เช่า 5%" },
+        { "@type": "HowToStep", "name": "คำนวณจากยอดก่อน VAT", "text": "นำยอดก่อน VAT คูณอัตราภาษีหัก ณ ที่จ่าย" },
+        { "@type": "HowToStep", "name": "ออกใบ 50 ทวิ และนำส่ง", "text": "ยื่น ภ.ง.ด.3/53 ภายในวันที่ 7 ของเดือนถัดไป" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "ภาษีหัก ณ ที่จ่ายคำนวณจากยอดก่อนหรือหลัง VAT?", "acceptedAnswer": { "@type": "Answer", "text": "จากยอดก่อน VAT เสมอ เช่น ค่าบริการ 10,000 + VAT 7% หัก 3% จาก 10,000 = 300 บาท" } },
+        { "@type": "Question", "name": "จ้างฟรีแลนซ์ต้องหักกี่เปอร์เซ็นต์?", "acceptedAnswer": { "@type": "Answer", "text": "โดยทั่วไปหัก 3% สำหรับค่าจ้างทำของหรือบริการ" } },
+        { "@type": "Question", "name": "ภ.ง.ด.3 กับ ภ.ง.ด.53 ต่างกันอย่างไร?", "acceptedAnswer": { "@type": "Answer", "text": "ภ.ง.ด.3 ใช้เมื่อผู้รับเป็นบุคคลธรรมดา ส่วน ภ.ง.ด.53 ใช้เมื่อผู้รับเป็นนิติบุคคล ยื่นภายในวันที่ 7 ของเดือนถัดไป" } },
+        { "@type": "Question", "name": "บริษัทออกภาษีแทนผู้รับได้ไหม?", "acceptedAnswer": { "@type": "Answer", "text": "ได้ มี 2 แบบ คือ ออกให้ตลอดไป (Gross-up) ซึ่งผู้รับได้เงินเต็มจำนวน และออกให้ครั้งเดียว ซึ่งผู้รับยังขาดส่วนภาษีบนภาษีเล็กน้อย เช่น ฐาน 10,000 ผู้รับได้ 9,991" } }
+      ]
+    }
+  ]
+}
 </script>
 </body>
 </html>
